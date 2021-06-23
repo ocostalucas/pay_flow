@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:pay_flow/app/core/app_colors.dart';
-import 'package:pay_flow/app/core/app_icons.dart';
-import 'package:pay_flow/app/core/app_images.dart';
-import 'package:pay_flow/app/core/app_typography.dart';
 import 'package:pay_flow/app/shared/components/social_button_widget.dart';
+import 'package:pay_flow/app/shared/core/app_colors.dart';
+import 'package:pay_flow/app/shared/core/app_icons.dart';
+import 'package:pay_flow/app/shared/core/app_images.dart';
+import 'package:pay_flow/app/shared/core/app_typography.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+import 'login_controller.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final LoginController controller = LoginController();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         height: size.height,
@@ -60,7 +68,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                    child: SocialButtonWidget(onTap: () {}),
+                    child: SocialButtonWidget(
+                        onTap: () => controller.googleSignIn(context)),
                   ),
                 ],
               ),

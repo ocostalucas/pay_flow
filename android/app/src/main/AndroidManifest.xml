@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.ocostalucas.pay_flow">
    <application
-        android:label="pay_flow"
+        android:label="Pay Flow"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
