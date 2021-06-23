@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_flow/app/core/app_colors.dart';
-import 'package:pay_flow/app/core/app_images.dart';
+import 'package:pay_flow/app/core/app_icons.dart';
 import 'package:pay_flow/app/core/app_typography.dart';
 
 class SocialButtonWidget extends StatelessWidget {
@@ -11,6 +11,7 @@ class SocialButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
       child: Container(
         height: 56,
         decoration: BoxDecoration(
@@ -25,9 +26,7 @@ class SocialButtonWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Image.asset(
-                      AppImages.google,
-                    ),
+                    child: AppIcon(icon: AppIcons.googleLogo),
                   ),
                   Container(height: 56, width: 1, color: AppColors.stroke)
                 ],

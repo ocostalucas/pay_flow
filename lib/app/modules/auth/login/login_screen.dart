@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_flow/app/core/app_colors.dart';
+import 'package:pay_flow/app/core/app_icons.dart';
 import 'package:pay_flow/app/core/app_images.dart';
 import 'package:pay_flow/app/core/app_typography.dart';
 import 'package:pay_flow/app/shared/components/social_button_widget.dart';
@@ -17,9 +18,17 @@ class LoginScreen extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              color: AppColors.primary,
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment(0, 0.69),
+                  colors: [
+                    Color(0xffFFC480),
+                    AppColors.primary,
+                  ],
+                ),
+              ),
               width: size.width,
-              height: size.height * .3,
+              height: size.height * .375,
             ),
             Positioned(
               left: 0,
@@ -36,7 +45,10 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(AppImages.logomini),
+                  AppIcon(
+                    icon: AppIcons.logoMini,
+                    size: Size(45, 45),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 70, vertical: 30),
