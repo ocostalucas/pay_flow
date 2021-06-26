@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pay_flow/app/modules/boletos/extract/extract_screen.dart';
+import 'package:pay_flow/app/modules/boletos/meus_boletos/meus_boletos_screen.dart';
 import 'package:pay_flow/app/shared/core/app_colors.dart';
 import 'package:pay_flow/app/shared/core/app_typography.dart';
+import 'package:pay_flow/app/shared/models/user_model.dart';
 
 import 'home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final UserModel user;
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -14,13 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final controller = HomeController();
 
-  final pages = [
-    Container(
-      color: Colors.red,
-    ),
-    Container(color: Colors.blue),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: Size.fromHeight(152),
         child: Container(
           height: 152,
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              center: Alignment(0, 0.69),
-              focalRadius: 20,
-              colors: [Color(0xffFFC480), AppColors.primary],
-            ),
-          ),
+          color: AppColors.primary,
           child: Center(
             child: ListTile(
               title: Text.rich(
@@ -43,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: AppTypography.titleRegular,
                     children: [
                       TextSpan(
-                          text: "Gabul",
+                          text: "${widget.user.name}",
                           style: AppTypography.titleBoldBackground)
                     ]),
               ),
@@ -56,13 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 48,
                 decoration: BoxDecoration(
                     color: Colors.black,
-                    borderRadius: BorderRadius.circular(5)),
+                    borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                        image: NetworkImage(widget.user.photoURL!))),
               ),
             ),
           ),
         ),
       ),
-      body: pages[controller.currentPage],
+      body: [
+        MeusBoletosScreen(
+          key: UniqueKey(),
+        ),
+        ExtractScreen(
+          key: UniqueKey(),
+        )
+      ][controller.currentPage],
       bottomNavigationBar: Container(
         height: 90,
         child: Row(
@@ -75,11 +75,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 icon: Icon(
                   Icons.home,
-                  color: AppColors.primary,
+                  color: controller.currentPage == 0
+                      ? AppColors.primary
+                      : AppColors.body,
                 )),
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/barcode_scanner');
+              onTap: () async {
+                await Navigator.pushNamed(context, "/barcode_scanner");
+                setState(() {});
               },
               child: Container(
                 width: 56,
@@ -94,15 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             IconButton(
-              onPressed: () {
-                controller.setPage(1);
-                setState(() {});
-              },
-              icon: Icon(
-                Icons.description_outlined,
-                color: AppColors.body,
-              ),
-            )
+                onPressed: () {
+                  controller.setPage(1);
+                  setState(() {});
+                },
+                icon: Icon(
+                  Icons.description_outlined,
+                  color: controller.currentPage == 1
+                      ? AppColors.primary
+                      : AppColors.body,
+                ))
           ],
         ),
       ),
