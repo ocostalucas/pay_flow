@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pay_flow/app/modules/auth/splash/splash_screen.dart';
 
 import 'modules/auth/login/login_screen.dart';
+import 'modules/barcode_scanner/barcode_scanner_screen.dart';
 import 'modules/home/home_screen.dart';
+import 'modules/insert_boleto/insert_boleto_screen.dart';
 import 'shared/core/app_colors.dart';
 
 class AppWidget extends StatelessWidget {
@@ -22,6 +24,8 @@ class AppWidget extends StatelessWidget {
         "/splash": (context) => SplashScreen(),
         "/login": (context) => LoginScreen(),
         "/home": (context) => HomeScreen(),
+        "/barcode_scanner": (context) => BarcodeScannerScreen(),
+        "/insert_boleto": (context) => InsertBoletoScreen()
       },
     );
   }
